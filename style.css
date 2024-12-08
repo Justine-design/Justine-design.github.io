@@ -241,8 +241,7 @@ footer p {
 /*Responsivität*/
 @media screen and (max-width: 600px) {
   body {
-   /* background-color: var(--gruen);*/
-   background-color: hotpink;
+   background-color: var(--gruen);
   }
 
   main #details-container {

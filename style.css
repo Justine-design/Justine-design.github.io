@@ -175,14 +175,14 @@ footer p {
 #search-button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: var(--button-blau);
+    background-color: var(--dunkelblau);
     color: white;
     border: none;
     cursor: pointer;
 }
 
 #search-button:hover {
-    background-color: #357ae8;
+    background-color: var(--button-blau);
 }
 
 #results-container {

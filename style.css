@@ -1,0 +1,281 @@
+/* styles.css */
+
+
+
+:root {
+    --dunkelblau: #004D8F;
+    --button-blau: #386696;
+    --hellblau: #A1B0D1;
+    --background: #f8f9fa;
+    --schwarz: #041321;
+    --accent-text: white;
+    --yellow: #FBBD05;
+    --gruen: #34A853;
+    }
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--yellow);
+  }
+  
+  .container {
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+  
+    
+  header {
+    background-color: var(--button-blau);
+    color: white;
+    padding: 20px;
+    text-align: left;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin: 0 auto;
+    padding-top: 10px;
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+  
+  header h1 {
+    font-size: 2rem;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    margin-bottom: 15px;
+  }
+
+  hr {
+    border: 1px solid lightgrey;
+    /*max-width: 94%;*/
+    padding-left: 2rem;
+    margin: auto;
+    display: flex;
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
+  #search-section h2 {
+    font-weight: 100;
+  }
+
+  #results-section {
+    padding-left: 2rem;
+    color: var(--dunkelblau);
+  }
+
+  #details-section {
+    padding-left: 2rem;
+  }
+
+  #details-container {
+    max-width: 90%;
+  }
+
+  #details-section h2 {
+    font-weight: 100;
+  }
+
+  #filter-options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  label {
+    margin-right: 2rem;
+  }
+
+  #language-select {
+    margin-right: 2rem;
+    max-width: fit-content;
+  }
+  
+  header img {
+    display: flex; 
+    justify-content: flex-end;         
+    align-items: flex-end;
+    max-height: 50px;
+  }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  select, input[type="date"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid var(--background);
+    border-radius: 4px;
+  }
+  
+  .gender, .filters {
+    display: flex;
+    gap: 10px;
+  }
+
+main {
+   background-color: var(--background);
+   max-width: 90%;
+   margin: 0 auto;
+   margin-bottom: 5rem;
+   box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9rem;
+    top: 0;
+    z-index: 1000;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    background-color: var(--button-blau);
+    color: var(--accent-text);
+}
+
+footer p {
+    margin: 0;
+}
+
+#search-section {
+    text-align: left;
+    padding-left: 2rem;
+    margin-top: 2rem;
+}
+
+#search-input {
+    width: 60%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#search-button:hover {
+    background-color: #357ae8;
+}
+
+#results-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.book {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 200px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.book img {
+    max-width: 100%;
+    height: auto;
+}
+
+#details-container {
+    padding: 10px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+  .card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+.card img {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    object-fit: cover;
+}
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.col-md-4.mb-4 {
+    width: 15rem;
+}
+
+/* Tooltip */ 
+.tooltip-inner {
+  background-color: var(--schwarz);
+  color: white;
+  font-size: 0.9rem;
+  border-radius: 5px;
+}
+
+/*Responsivität*/
+@media screen and (max-width: 600px) {
+  body {
+    background-color: var(--gruen);
+  }
+
+  main #details-container {
+    margin-right: 20px;
+  }
+
+  #filter-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  #filter-options label {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  header h1 {
+    font-size: 20px;
+  }
+  header p {
+    font-size: 14px;
+    margin: 0;
+    margin-left: 3rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .container {
+    width: 90%;
+    align-self: center;
+    display: flex;
+  }
+  .col-md-4.mb-4 {
+    width: 17rem;
+  }
+
+ 
+  }
+

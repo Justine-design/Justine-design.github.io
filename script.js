@@ -1,6 +1,5 @@
 // JS
 
-// API KEY: AIzaSyBR5w4s85g-h6j9N2YBfSAPeTbnLTwF3Bk
 const apiKey = 'AIzaSyBR5w4s85g-h6j9N2YBfSAPeTbnLTwF3Bk'; // Ersetze mit deinem Google Books API Key
 const searchButton = document.getElementById('search-button');
 const searchInput = document.getElementById('search-input');

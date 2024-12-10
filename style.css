@@ -9,7 +9,7 @@
     --background: #f8f9fa;
     --schwarz: #041321;
     --accent-text: white;
-    --yellow: #FBBD05;
+    --background-neutral: #e6dec8;
     --gruen: #34A853;
     }
 
@@ -17,7 +17,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: var(--yellow);
+    background-color: var(--background-neutral);
   }
   
   .container {

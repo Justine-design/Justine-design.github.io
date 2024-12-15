@@ -116,7 +116,8 @@ function displayResults(books) {
                     <p class="card-text">${book.volumeInfo.authors?.join(', ') || 'Unbekannter Autor'}</p>
                 </div>
                 <div class="card-footer">
-                    <button class="btn btn-primary btn-sm" onclick="displayDetails(${JSON.stringify(book).replace(/"/g, '&quot;')})">Details anzeigen</button>
+
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="displayDetails(${JSON.stringify(book).replace(/"/g, '&quot;')})">Details anzeigen</button>
                 </div>
             </div>
         `;
@@ -168,12 +169,51 @@ function displayResults(books) {
 // Buchdetails anzeigen
 function displayDetails(book) {
     detailsContainer.innerHTML = `
-        <h3>${book.volumeInfo.title}</h3>
-        <p><strong>Autor(en):</strong> ${book.volumeInfo.authors?.join(', ') || 'Unbekannt'}</p>
-        <p><strong>Beschreibung:</strong> ${book.volumeInfo.description || 'Keine Beschreibung verfügbar.'}</p>
-        <p><strong>Verlag:</strong> ${book.volumeInfo.publisher || 'Unbekannt'}, ${book.volumeInfo.publishedDate || 'Unbekannt'}</p>
-        <img src="${book.volumeInfo.imageLinks?.thumbnail || ''}" alt="${book.volumeInfo.title}" />
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">${book.volumeInfo.title}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <img src="${book.volumeInfo.imageLinks?.thumbnail || ''}" alt="${book.volumeInfo.title}" />
+            <p><strong>Beschreibung:</strong> ${book.volumeInfo.description || 'Keine Beschreibung verfügbar.'}</p>
+            <p><strong>Autor(en):</strong> ${book.volumeInfo.authors?.join(', ') || 'Unbekannt'}</p>
+            <p><strong>Verlag:</strong> ${book.volumeInfo.publisher || 'Unbekannt'}, ${book.volumeInfo.publishedDate || 'Unbekannt'}</p>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
     `;
+
+    /*
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    */
 
     // Automatisch zum Details-Bereich scrollen
     detailsContainer.scrollIntoView({ behavior: 'smooth' });
@@ -280,5 +320,10 @@ const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-tog
         new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
-
+const myModal = document.getElementById('myModal')    
+const myInput = document.getElementById('myInput')
+    
+myModal.addEventListener('shown.bs.modal', () => {
+    myInput.focus()
+  })
 

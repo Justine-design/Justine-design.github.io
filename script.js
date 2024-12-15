@@ -182,26 +182,15 @@ function displayDetails(book) {
             <p><strong>Beschreibung:</strong> ${book.volumeInfo.description || 'Keine Beschreibung verfügbar.'}</p>
             <p><strong>Autor(en):</strong> ${book.volumeInfo.authors?.join(', ') || 'Unbekannt'}</p>
             <p><strong>Verlag:</strong> ${book.volumeInfo.publisher || 'Unbekannt'}, ${book.volumeInfo.publishedDate || 'Unbekannt'}</p>
-
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Suche auf Orell Füessli</button>
-
-        <div class="mt-3">
-            <a href="${searchUrl}" target="_blank" class="btn btn-success">
-                Bei Orell Füssli kaufen
-            </a>
-        </div>
-
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schliessen</button>
         </div>
       </div>
     </div>
-  </div>
+</div>
     `;
-    
 }
-
 
 // Pagination
 function updatePagination(totalItems) {

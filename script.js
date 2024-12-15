@@ -126,46 +126,6 @@ function displayResults(books) {
     });
 }
 
-/*
-
-function displayResults(books) {
-    // Sortiere die Bücher alphabetisch nach dem ersten Autor
-    books.sort((a, b) => {
-        // Stelle sicher, dass das Autorenfeld existiert und das erste Element verwendet wird
-        const authorA = a.volumeInfo.authors ? a.volumeInfo.authors[0].toLowerCase() : "";
-        const authorB = b.volumeInfo.authors ? b.volumeInfo.authors[0].toLowerCase() : "";
-        
-        // Vergleiche die Autoren alphabetisch
-        return authorA.localeCompare(authorB);
-    });
-
-    const resultsContainer = document.getElementById('results-container');
-    resultsContainer.innerHTML = '';
-
-    if (books.length === 0) {
-        resultsContainer.innerHTML = '<p>Keine Ergebnisse gefunden.</p>';
-    } else {
-        books.forEach(book => {
-            const bookElement = document.createElement('div');
-            bookElement.classList.add('book');
-
-            const title = book.volumeInfo.title || 'Unbekannter Titel';
-            const authors = book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : 'Unbekannter Autor';
-            const imageUrl = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : 'https://via.placeholder.com/128x192';
-
-            bookElement.innerHTML = `
-                <img src="${imageUrl}" alt="${title}" />
-                <h3>${title}</h3>
-                <p><strong>Autor(en):</strong> ${authors}</p>
-            `;
-            resultsContainer.appendChild(bookElement);
-        });
-    }
-}
-
-
-*/
-
 // Buchdetails anzeigen
 function displayDetails(book) {
     detailsContainer.innerHTML = `
@@ -182,15 +142,18 @@ function displayDetails(book) {
             <p><strong>Beschreibung:</strong> ${book.volumeInfo.description || 'Keine Beschreibung verfügbar.'}</p>
             <p><strong>Autor(en):</strong> ${book.volumeInfo.authors?.join(', ') || 'Unbekannt'}</p>
             <p><strong>Verlag:</strong> ${book.volumeInfo.publisher || 'Unbekannt'}, ${book.volumeInfo.publishedDate || 'Unbekannt'}</p>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schliessen</button>
         </div>
       </div>
     </div>
-</div>
+  </div>
     `;
+
 }
+
 
 // Pagination
 function updatePagination(totalItems) {
@@ -297,4 +260,3 @@ const myInput = document.getElementById('myInput')
 myModal.addEventListener('shown.bs.modal', () => {
     myInput.focus()
   })
-

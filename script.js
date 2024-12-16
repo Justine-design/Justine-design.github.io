@@ -260,3 +260,25 @@ const myInput = document.getElementById('myInput')
 myModal.addEventListener('shown.bs.modal', () => {
     myInput.focus()
   })
+
+// Nach und nach einblendendes Formular
+        const filterOptions = document.getElementById('filter-options');
+        const languageLabel = document.getElementById('language-label');
+
+        searchInput.addEventListener('input', function () {
+            if (this.value.trim() !== '') {
+                filterOptions.style.display = 'block';
+            } else {
+                filterOptions.style.display = 'none';
+                languageLabel.style.display = 'none';
+                languageSelect.style.display = 'none';
+            }
+        });
+
+        filterOptions.addEventListener('change', function () {
+            const selectedFilter = document.querySelector('input[name="filter"]:checked');
+            if (selectedFilter) {
+                languageLabel.style.display = 'inline';
+                languageSelect.style.display = 'inline';
+            }
+        });

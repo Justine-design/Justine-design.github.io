@@ -18,44 +18,42 @@
     <header>
         <h1>Google Books - Biblioview</h1>
         <p>Von Klassikern bis Geheimtipps - hier findest du alles!</p>
-    </header>
-        <section id="search-section">
-            <h2 data-bs-toggle="tooltip" data-bs-placement="right" title="Nur Buchstaben, Zahlen, Leerschläge und die Zeichen ´ ' + # sind erlaubt.">Gebe deine Suchdaten hier ein: </h2>
-
-            <label for="search-input">Suchdaten:</label>
-            <input 
-            type="text" 
-            id="search-input"             
-            placeholder="Gib einen Titel oder Autor ein" 
-            maxlength="75" 
-            pattern="[a-zA-Z0-9 ´'+ #]+" 
-            title="Nur Buchstaben, Zahlen, Leerschläge und die Zeichen ´ ' + # sind erlaubt."
-            required
-            >
-            
-
-
-            <div id="filter-options">
-                <label>
-                    <input type="checkbox" id="filter-free"> Gratisbücher
-                </label>
-                <label>
-                    <input type="checkbox" id="filter-paid"> Kostenpflichtige Bücher
-                </label>
-                <label for="language-select">Sprache:</label>
-                <select id="language-select">
+        </header>
+            <section id="search-section">
+                <h2 data-bs-toggle="tooltip" data-bs-placement="right" title="Nur Buchstaben, Zahlen, Leerschläge und die Zeichen ´ ' + # sind erlaubt.">Gebe deine Suchdaten hier ein: </h2>
+        
+                <label for="search-input">Suchdaten:</label>
+                <input 
+                type="text" 
+                id="search-input"             
+                placeholder="Gib einen Titel oder Autor ein" 
+                maxlength="75" 
+                pattern="[a-zA-Z0-9 ´'+ #]+" 
+                title="Nur Buchstaben, Zahlen, Leerschläge und die Zeichen ´ ' + # sind erlaubt."
+                required
+                >
+        
+                <div id="filter-options" style="display: none;">
+                    <label>
+                        <input type="radio" name="filter" id="filter-free" value="free"> Gratisbücher
+                    </label>
+                    <label>
+                        <input type="radio" name="filter" id="filter-paid" value="paid"> Kostenpflichtige Bücher
+                    </label>
+                </div>
+        
+                <label for="language-select" style="display: none;" id="language-label">Sprache:</label>
+                <select id="language-select" style="display: none;">
                     <option value="de">Deutsch</option>
                     <option value="en">Englisch</option>
                     <option value="fr">Französisch</option>
                     <option value="es">Spanisch</option>
                     <option value="it">Italienisch</option>
                 </select>
-
-            </div>
-
-            <button data-bs-toggle="tooltip" data-bs-placement="right" title="Beginne die Suche nach den Büchern!" class="btn btn-primary" id="search-button">Suchen</button>
-
-        </section>
+        
+                <button data-bs-toggle="tooltip" data-bs-placement="right" title="Beginne die Suche nach den Büchern!" class="btn btn-primary" id="search-button">Suchen</button>
+        
+            </section>        
 
         <hr>
         <br>

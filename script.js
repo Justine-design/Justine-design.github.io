@@ -5,6 +5,7 @@ const searchButton = document.getElementById('search-button');
 const searchInput = document.getElementById('search-input');
 const filterFree = document.getElementById('filter-free');
 const filterPaid = document.getElementById('filter-paid');
+const filterOptions = document.getElementById('filter-options');
 const languageSelect = document.getElementById('language-select');
 const resultsContainer = document.getElementById('results-container');
 const detailsContainer = document.getElementById('details-container');
@@ -12,6 +13,9 @@ const paginationContainer = document.getElementById('pagination');
 
 let currentPage = 0; // Start bei Seite 0
 const maxResultsPerPage = 20; // Anzahl der Bücher pro Seite
+
+// display filters 
+filterOptions.style.display = "none";
 
 // Filter abrufen
 function getFilters() {
@@ -27,7 +31,7 @@ function fetchBooks(query, filters = [], language = '', startIndex = 0) {
     let langQuery = language ? `langRestrict=${language}` : '';
 
     const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&${filterQuery}&${langQuery}&startIndex=${startIndex}&maxResults=${maxResultsPerPage}&key=${apiKey}`;
-    
+
     fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -36,6 +40,18 @@ function fetchBooks(query, filters = [], language = '', startIndex = 0) {
         })
         .catch(error => console.error('Fehler beim Abrufen der Bücher:', error));
 }
+
+// Einblenden von Filteroptions nach 4 Buchstaben
+searchInput.addEventListener('keyup', function (e) {
+    string = this.value;
+    //console.log(string.trim());
+
+    if (string.trim().length >= 4) {
+        filterOptions.style.display = "block";
+    } else { 
+        filterOptions.style.display = "none";
+    }
+})
 
 // Event für die Suchfunktion
 searchButton.addEventListener('click', () => {
@@ -88,12 +104,12 @@ function validateInput(input) {
 // Ergebnisse anzeigen
 function displayResults(books) {
 
-      // Sortiere die Bücher alphabetisch nach dem ersten Autor
-      books.sort((a, b) => {
+    // Sortiere die Bücher alphabetisch nach dem ersten Autor
+    books.sort((a, b) => {
         // Stelle sicher, dass das Autorenfeld existiert und das erste Element verwendet wird
         const authorA = a.volumeInfo.authors ? a.volumeInfo.authors[0].toLowerCase() : "";
         const authorB = b.volumeInfo.authors ? b.volumeInfo.authors[0].toLowerCase() : "";
-        
+
         // Vergleiche die Autoren alphabetisch
         return authorA.localeCompare(authorB);
     });
@@ -129,6 +145,7 @@ function displayResults(books) {
 // Buchdetails anzeigen
 function displayDetails(book) {
     detailsContainer.innerHTML = `
+    
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -161,7 +178,7 @@ function updatePagination(totalItems) {
     const paginationContainer = document.getElementById('pagination');
 
     // Pagination-Container leeren
-    paginationContainer.innerHTML = ''; 
+    paginationContainer.innerHTML = '';
 
     // "Vorherige"-Button
     const prevItem = document.createElement('li');
@@ -250,35 +267,15 @@ function updatePagination(totalItems) {
 
 // Tooltip
 const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
-        new bootstrap.Tooltip(tooltipTriggerEl);
-    });
+tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+    new bootstrap.Tooltip(tooltipTriggerEl);
+});
 
-const myModal = document.getElementById('myModal')    
+// Modal
+const myModal = document.getElementById('myModal')
 const myInput = document.getElementById('myInput')
-    
+
 myModal.addEventListener('shown.bs.modal', () => {
     myInput.focus()
-  })
+})
 
-// Nach und nach einblendendes Formular
-        const filterOptions = document.getElementById('filter-options');
-        const languageLabel = document.getElementById('language-label');
-
-        searchInput.addEventListener('input', function () {
-            if (this.value.trim() !== '') {
-                filterOptions.style.display = 'block';
-            } else {
-                filterOptions.style.display = 'none';
-                languageLabel.style.display = 'none';
-                languageSelect.style.display = 'none';
-            }
-        });
-
-        filterOptions.addEventListener('change', function () {
-            const selectedFilter = document.querySelector('input[name="filter"]:checked');
-            if (selectedFilter) {
-                languageLabel.style.display = 'inline';
-                languageSelect.style.display = 'inline';
-            }
-        });

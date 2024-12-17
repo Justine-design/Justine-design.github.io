@@ -3,14 +3,14 @@
 
 
 :root {
-    --dunkelblau: #004D8F;
-    --button-blau: #386696;
+    --dunkelgruen: #283618;
+    --button-gruen: #606C38;
     --hellblau: #A1B0D1;
     --background: #f8f9fa;
     --schwarz: #041321;
     --accent-text: white;
     --background-neutral: #e6dec8;
-    --background-mobile: #7d7d7d;
+    --background-mobile: #122218;
     }
 
 body {
@@ -30,7 +30,7 @@ body {
   
     
   header {
-    background-color: var(--button-blau);
+    background-color: var(--button-gruen);
     color: white;
     padding: 20px;
     text-align: left;
@@ -71,7 +71,7 @@ body {
 
   #results-section {
     padding-left: 2rem;
-    color: var(--dunkelblau);
+    color: var(--dunkelgruen);
   }
 
   #details-section {
@@ -80,6 +80,9 @@ body {
 
   #details-container {
     max-width: 90%;
+    border: none;
+    padding: 10px;
+    background-color: var(--background);
   }
 
   #details-section h2 {
@@ -150,9 +153,10 @@ footer {
     z-index: 1000;
     margin: 0 auto;
     padding-bottom: 10px;
-    background-color: var(--button-blau);
+    background-color: var(--button-gruen);
     color: var(--accent-text);
 }
+
 
 footer p {
     margin: 0;
@@ -175,14 +179,14 @@ footer p {
 #search-button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: var(--button-blau);
+    background-color: var(--button-gruen);
     color: white;
     border: none;
     cursor: pointer;
 }
 
 #search-button:hover {
-    background-color: var(--dunkelblau);
+    background-color: var(--dunkelgruen);
 }
 
 #results-container {
@@ -205,12 +209,7 @@ footer p {
     height: auto;
 }
 
-#details-container {
-    padding: 10px;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
+
 
   .card {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -230,6 +229,24 @@ footer p {
     width: 15rem;
 }
 
+.card-footer button {
+  background-color: var(--button-gruen);
+  border: none;
+}
+
+.card-footer button:hover {
+  background-color: var(--dunkelgruen);
+}
+
+.modal-footer button {
+  background-color: var(--button-gruen);
+  border: none;
+}
+
+.modal-footer button:hover {
+  background-color: var(--dunkelgruen);
+}
+
 /* Tooltip */ 
 .tooltip-inner {
   background-color: var(--schwarz);
@@ -240,6 +257,11 @@ footer p {
 
 /*Responsivität*/
 @media screen and (max-width: 600px) {
+  
+  *, ::after, ::before {
+    box-sizing: border-box;
+  }
+  
   body {
    background-color: var(--background-mobile);
   }
@@ -252,10 +274,31 @@ footer p {
     flex-direction: column;
     align-items: flex-start;
   }
+
   #filter-options label {
     padding-top: 5px;
     padding-bottom: 5px;
   }
+
+  #filter-options label input {
+    appearance: none;
+  
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+  
+    border: 2px solid #999;
+    transition: 0.2s all linear;
+    margin-right: 5px;
+  
+    position: relative;
+    top: 4px;
+  }
+
+  #filter-options label input:checked {
+    border: 5px solid var(--button-gruen);
+  }
+
   header h1 {
     font-size: 20px;
   }

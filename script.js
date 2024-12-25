@@ -48,8 +48,10 @@ searchInput.addEventListener('keyup', function (e) {
 
     if (string.trim().length >= 4) {
         filterOptions.style.display = "block";
+        paginationContainer.style.display ="flex";
     } else { 
         filterOptions.style.display = "none";
+        paginationContainer.style.display ="none";
     }
 })
 
@@ -196,13 +198,10 @@ function displayDetails(bookJson) {
 
 
 
-// Pagination
+//Pagination
 function updatePagination(totalItems) {
     const totalPages = Math.ceil(totalItems / maxResultsPerPage); // Gesamtseiten berechnen
-    const paginationContainer = document.getElementById('pagination');
-
-    // Pagination-Container leeren
-    paginationContainer.innerHTML = '';
+    const paginationContainer = document.getElementById('pagination'); 
 
     // "Vorherige"-Button
     const prevItem = document.createElement('li');

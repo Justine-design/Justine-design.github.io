@@ -157,7 +157,6 @@ footer {
     color: var(--accent-text);
 }
 
-
 footer p {
     margin: 0;
 }
@@ -174,6 +173,15 @@ footer p {
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 5px;
+}
+
+#pagination {
+    color: #041321;
+}
+
+.active>.page-link, .page-link.active {
+    background-color: var(--button-gruen);
+    border-color: var(--button-gruen);
 }
 
 #search-button {
@@ -254,6 +262,8 @@ footer p {
   font-size: 0.9rem;
   border-radius: 5px;
 }
+
+
 
 /*Responsivität*/
 @media screen and (max-width: 600px) {

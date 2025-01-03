@@ -103,49 +103,6 @@ function validateInput(input) {
     return true;
 }
 
-/*
-// Ergebnisse anzeigen
-function displayResults(books) {
-
-    // Sortiere die Bücher alphabetisch nach dem ersten Autor
-    books.sort((a, b) => {
-        // Stelle sicher, dass das Autorenfeld existiert und das erste Element verwendet wird
-        const authorA = a.volumeInfo.authors ? a.volumeInfo.authors[0].toLowerCase() : "";
-        const authorB = b.volumeInfo.authors ? b.volumeInfo.authors[0].toLowerCase() : "";
-
-        // Vergleiche die Autoren alphabetisch
-        return authorA.localeCompare(authorB);
-    });
-
-    resultsContainer.innerHTML = ''; // Vorherige Ergebnisse entfernen
-    if (books.length === 0) {
-        resultsContainer.innerHTML = '<p>Keine Ergebnisse gefunden.</p>';
-        return;
-    }
-
-    books.forEach(book => {
-        const bookCard = document.createElement('div');
-        bookCard.classList.add('col-md-4', 'mb-4'); // Bootstrap Grid-Klassen
-
-        bookCard.innerHTML = `
-            <div class="card h-100">
-                <img src="${book.volumeInfo.imageLinks?.thumbnail || 'https://via.placeholder.com/150'}" class="card-img-top" alt="${book.volumeInfo.title}">
-                <div class="card-body">
-                    <h5 class="card-title">${book.volumeInfo.title}</h5>
-                    <p class="card-text">${book.volumeInfo.authors?.join(', ') || 'Unbekannter Autor'}</p>
-                </div>
-                <div class="card-footer">
-
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="displayDetails(${JSON.stringify(book).replace(/"/g, '&quot;')})">Details anzeigen</button>
-                </div>
-            </div>
-        `;
-
-        resultsContainer.appendChild(bookCard);
-    });
-}
-*/
-
 // Ergebnisse anzeigen
 function displayResults(books) {
     // Bücher alphabetisch nach dem ersten Autor sortieren
@@ -162,6 +119,7 @@ function displayResults(books) {
         return;
     }
 
+    // Bücher in Kacheln anzeigen (Bootstrap)
     books.forEach(book => {
         const bookCard = document.createElement('div');
         bookCard.classList.add('col-md-4', 'mb-4'); // Bootstrap-Klassen
@@ -183,6 +141,7 @@ function displayResults(books) {
     });
 }
 
+// Inhalt mit den Details füllen
 function displayDetails(bookJson) {
     const book = JSON.parse(decodeURIComponent(bookJson));
 
@@ -195,8 +154,6 @@ function displayDetails(bookJson) {
         <p><strong>Erscheinungsdatum:</strong> ${book.volumeInfo.publishedDate || 'Unbekannt'}</p>
     `;
 }
-
-
 
 //Pagination
 function updatePagination(totalItems) {
@@ -301,4 +258,3 @@ const myInput = document.getElementById('myInput')
 myModal.addEventListener('shown.bs.modal', () => {
     myInput.focus()
 })
-

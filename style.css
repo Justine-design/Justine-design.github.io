@@ -1,7 +1,5 @@
 /* styles.css */
 
-
-
 :root {
     --dunkelgruen: #283618;
     --button-gruen: #606C38;
@@ -20,16 +18,15 @@ body {
     background-color: var(--background-neutral);
   }
   
-  .container {
+.container {
     max-width: 95%;
     margin: 0 auto;
     padding: 1rem;
     margin-left: 2rem;
     margin-right: 2rem;
   }
-  
     
-  header {
+header {
     background-color: var(--button-gruen);
     color: white;
     padding: 20px;
@@ -65,9 +62,44 @@ body {
     margin-right: 2rem;
   }
 
+  /* Suche und Resultate */
+  
+  #search-section {
+    text-align: left;
+    padding-left: 2rem;
+    margin-top: 2rem;
+}
+
   #search-section h2 {
     font-weight: 100;
   }
+
+  #search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: var(--button-gruen);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#search-button:hover {
+    background-color: var(--dunkelgruen);
+}
+
+#search-input {
+    width: 60%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#results-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
 
   #results-section {
     padding-left: 2rem;
@@ -161,20 +193,6 @@ footer p {
     margin: 0;
 }
 
-#search-section {
-    text-align: left;
-    padding-left: 2rem;
-    margin-top: 2rem;
-}
-
-#search-input {
-    width: 60%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
 #pagination {
     color: #041321;
 }
@@ -184,24 +202,7 @@ footer p {
     border-color: var(--button-gruen);
 }
 
-#search-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: var(--button-gruen);
-    color: white;
-    border: none;
-    cursor: pointer;
-}
 
-#search-button:hover {
-    background-color: var(--dunkelgruen);
-}
-
-#results-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
 
 .book {
     background: white;
@@ -216,8 +217,6 @@ footer p {
     max-width: 100%;
     height: auto;
 }
-
-
 
   .card {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -262,8 +261,6 @@ footer p {
   font-size: 0.9rem;
   border-radius: 5px;
 }
-
-
 
 /*Responsivität*/
 @media screen and (max-width: 600px) {
@@ -328,7 +325,6 @@ footer p {
   .col-md-4.mb-4 {
     width: 17rem;
   }
-
  
   }
-
+  

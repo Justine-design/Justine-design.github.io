@@ -158,6 +158,7 @@ function displayDetails(bookJson) {
 //Pagination
 function updatePagination(totalItems) {
     const totalPages = Math.ceil(totalItems / maxResultsPerPage); // Gesamtseiten berechnen
+    paginationContainer.innerHTML = ''; // Vorherige Pagination löschen
     const paginationContainer = document.getElementById('pagination'); 
 
     // "Vorherige"-Button
@@ -255,6 +256,7 @@ tooltipTriggerList.forEach(function (tooltipTriggerEl) {
 const myModal = document.getElementById('myModal')
 const myInput = document.getElementById('myInput')
 
+// Gibt Fehlermeldung "Cannot read property blah blah => noch richtig verlinken anschauen"
 myModal.addEventListener('shown.bs.modal', () => {
     myInput.focus()
 })

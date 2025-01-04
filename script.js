@@ -103,6 +103,28 @@ function validateInput(input) {
     return true;
 }
 
+// Anzeigen, wie viele Matches es gibt (exakte und unexakte)
+function countMatches(books, query) {
+    const lowerQuery = query.toLowerCase();
+    let exactMatches = 0, nonExactMatches = 0;
+
+    books.forEach(book => {
+        const title = book.volumeInfo.title?.toLowerCase() || '';
+        const authors = book.volumeInfo.authors?.join(' ').toLowerCase() || '';
+        if (title.includes(lowerQuery) || authors.includes(lowerQuery)) {
+            if (title === lowerQuery || authors.includes(lowerQuery)) {
+                exactMatches++;
+            } else {
+                nonExactMatches++;
+            }
+        }
+    });
+
+    document.getElementById('match-stats').textContent = 
+        `Exakte Treffer: ${exactMatches}, Nicht-exakte Treffer: ${nonExactMatches}`;
+}
+
+
 // Ergebnisse anzeigen
 function displayResults(books) {
     // Bücher alphabetisch nach dem ersten Autor sortieren

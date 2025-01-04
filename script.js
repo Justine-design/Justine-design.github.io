@@ -126,7 +126,11 @@ function countMatches(books, query) {
 
 
 // Ergebnisse anzeigen
-function displayResults(books) {
+function displayResults(books, query) {
+
+    resultsContainer.innerHTML = ''; // Vorherige Ergebnisse entfernen
+    document.getElementById('match-stats').textContent = ''; // Statistiken zurücksetzen
+
     // Bücher alphabetisch nach dem ersten Autor sortieren
     books.sort((a, b) => {
         const authorA = a.volumeInfo.authors ? a.volumeInfo.authors[0].toLowerCase() : "";
@@ -139,6 +143,9 @@ function displayResults(books) {
     if (books.length === 0) {
         resultsContainer.innerHTML = '<p>Keine Ergebnisse gefunden.</p>';
         return;
+    
+        countMatches(books, query); // Statistiken anzeigen
+        // Restliche Logik für die Anzeige der Ergebnisse...
     }
 
     // Bücher in Kacheln anzeigen (Bootstrap)

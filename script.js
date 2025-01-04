@@ -156,18 +156,36 @@ function displayDetails(bookJson) {
 }
 
 //Pagination
-function updatePagination(totalItems) {
-    const paginationContainer = document.getElementById('pagination'); 
+function function updatePagination(totalItems) {
+    // Überprüfung der Parameter
+    if (typeof totalItems !== 'number' || totalItems < 0) {
+        console.error('Ungültige Gesamtanzahl der Elemente:', totalItems);
+        return;
+    }
+    if (typeof maxResultsPerPage !== 'number' || maxResultsPerPage <= 0) {
+        console.error('Ungültige Anzahl der Elemente pro Seite:', maxResultsPerPage);
+        return;
+    }
+    if (typeof currentPage !== 'number' || currentPage < 0) {
+        console.error('Ungültige aktuelle Seite:', currentPage);
+        return;
+    }
+
+    const paginationContainer = document.getElementById('pagination');
+    if (!paginationContainer) {
+        console.error('Element mit ID "pagination" nicht gefunden.');
+        return;
+    }
+
     paginationContainer.innerHTML = ''; // Vorherige Pagination löschen
 
-    const totalPages = Math.ceil(totalItems / maxResultsPerPage); // Gesamtseiten berechnen
+    const totalPages = Math.ceil(totalItems / maxResultsPerPage);
     if (totalPages <= 1) return; // Keine Pagination notwendig
 
     // "Vorherige"-Button
     const prevItem = document.createElement('li');
     prevItem.classList.add('page-item');
     if (currentPage === 0) prevItem.classList.add('disabled');
-
     prevItem.innerHTML = `
         <a class="page-link" href="#" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
@@ -181,13 +199,12 @@ function updatePagination(totalItems) {
     });
     paginationContainer.appendChild(prevItem);
 
-    // Dynamische Seitenzahlen mit "..."
-    const range = 3; // Anzahl der sichtbaren Seitenzahlen
+    // Dynamische Seitenzahlen
+    const range = Math.min(3, totalPages); // Maximale Anzahl der sichtbaren Seitenzahlen
     const addPage = (pageNum, isActive = false) => {
         const pageItem = document.createElement('li');
         pageItem.classList.add('page-item');
         if (isActive) pageItem.classList.add('active');
-
         pageItem.innerHTML = `<a class="page-link" href="#">${pageNum + 1}</a>`;
         pageItem.addEventListener('click', (e) => {
             e.preventDefault();
@@ -211,7 +228,6 @@ function updatePagination(totalItems) {
     // Sichtbare Seitenzahlen
     const start = Math.max(0, Math.min(currentPage - Math.floor(range / 2), totalPages - range));
     const end = Math.min(totalPages, start + range);
-
     for (let i = start; i < end; i++) {
         addPage(i, i === currentPage);
     }
@@ -231,7 +247,6 @@ function updatePagination(totalItems) {
     const nextItem = document.createElement('li');
     nextItem.classList.add('page-item');
     if (currentPage >= totalPages - 1) nextItem.classList.add('disabled');
-
     nextItem.innerHTML = `
         <a class="page-link" href="#" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
@@ -245,6 +260,7 @@ function updatePagination(totalItems) {
     });
     paginationContainer.appendChild(nextItem);
 }
+
 
 //Pagination Ende
 

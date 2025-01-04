@@ -1,3 +1,4 @@
+
 // JS
 
 const apiKey = 'AIzaSyBR5w4s85g-h6j9N2YBfSAPeTbnLTwF3Bk'; // Ersetze mit deinem Google Books API Key
@@ -104,11 +105,7 @@ function validateInput(input) {
 }
 
 // Ergebnisse anzeigen
-function displayResults(books, query) {
-
-    resultsContainer.innerHTML = ''; // Vorherige Ergebnisse entfernen
-    document.getElementById('match-stats').textContent = ''; // Statistiken zurücksetzen
-
+function displayResults(books) {
     // Bücher alphabetisch nach dem ersten Autor sortieren
     books.sort((a, b) => {
         const authorA = a.volumeInfo.authors ? a.volumeInfo.authors[0].toLowerCase() : "";

@@ -157,9 +157,11 @@ function displayDetails(bookJson) {
 
 //Pagination
 function updatePagination(totalItems) {
-    const totalPages = Math.ceil(totalItems / maxResultsPerPage); // Gesamtseiten berechnen
-    paginationContainer.innerHTML = ''; // Vorherige Pagination löschen
     const paginationContainer = document.getElementById('pagination'); 
+    paginationContainer.innerHTML = ''; // Vorherige Pagination löschen
+
+    const totalPages = Math.ceil(totalItems / maxResultsPerPage); // Gesamtseiten berechnen
+    if (totalPages <= 1) return; // Keine Pagination notwendig
 
     // "Vorherige"-Button
     const prevItem = document.createElement('li');
@@ -207,7 +209,7 @@ function updatePagination(totalItems) {
     }
 
     // Sichtbare Seitenzahlen
-    const start = Math.max(0, currentPage - Math.floor(range / 2));
+    const start = Math.max(0, Math.min(currentPage - Math.floor(range / 2), totalPages - range));
     const end = Math.min(totalPages, start + range);
 
     for (let i = start; i < end; i++) {

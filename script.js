@@ -69,12 +69,12 @@ searchButton.addEventListener('click', () => {
     fetchBooks(preciseQuery, filters, language, currentPage * maxResultsPerPage);
 });
 
-// Validierungslogik
+// Validierungslogik 
 function validateInput(input) {
     input = input.trim();
 
     const validPattern = /^[a-zA-Z0-9 ´+'#:-]+$/;
-    const forbiddenWords = ['test', '1234'];
+    const forbiddenWords = ['test', '1234', '123456789', '88'];
 
     if (!input) {
         alert('Eingabe darf nicht leer sein.');
@@ -156,18 +156,19 @@ function displayDetails(bookJson) {
     `;
 }
 
-//Pagination
+//Pagination => hier stimmt was noch nicht
 function updatePagination(totalItems) {
     const paginationContainer = document.getElementById('pagination'); 
     paginationContainer.innerHTML = ''; // Vorherige Pagination löschen
 
     const totalPages = Math.ceil(totalItems / maxResultsPerPage); // Gesamtseiten berechnen
-    if (totalPages <= 1) return; // Keine Pagination notwendig
+    if (totalPages <= 1) return; // Keine Pagination notwendig wenn Gesamtseiten kleiner gleich 1 (<= 20 Ergebnisse)
 
     // "Vorherige"-Button
     const prevItem = document.createElement('li');
     prevItem.classList.add('page-item');
     if (currentPage === 0) prevItem.classList.add('disabled');
+
 
     prevItem.innerHTML = `
         <a class="page-link" href="#" aria-label="Previous">
@@ -183,7 +184,7 @@ function updatePagination(totalItems) {
     paginationContainer.appendChild(prevItem);
 
     // Dynamische Seitenzahlen mit "..."
-    const range = 3; // Anzahl der sichtbaren Seitenzahlen
+    const range = 5; // Anzahl der sichtbaren Seitenzahlen
     const addPage = (pageNum, isActive = false) => {
         const pageItem = document.createElement('li');
         pageItem.classList.add('page-item');

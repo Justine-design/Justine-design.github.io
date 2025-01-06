@@ -161,9 +161,16 @@ function updatePagination(totalItems) {
     const paginationContainer = document.getElementById('pagination'); // HTML-Container wird referenziert
     paginationContainer.innerHTML = ''; // Vorherige Pagination löschen
 
-    const range = 3; // Anzahl der sichtbaren Seitenzahlen
     const totalPages = Math.ceil(totalItems / maxResultsPerPage); // Gesamtseiten berechnen
-    if (totalPages <= 1) return; // Keine Pagination notwendig bei <= 1 Seite
+    
+    // Überprüfung: Pagination nur anzeigen, wenn mehrere Seiten vorhanden sind
+      if (totalItems <= maxResultsPerPage) {
+        paginationContainer.style.display = 'none'; // Pagination ausblenden
+        return;
+    }
+    paginationContainer.style.display = 'flex'; // Pagination sichtbar machen
+
+    const range = 3; // Anzahl der sichtbaren Seitenzahlen
 
     // "Vorherige"-Button
     const prevItem = document.createElement('li');

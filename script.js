@@ -30,13 +30,16 @@ function getFilters() {
 function fetchBooks(query, filters = [], language = '', startIndex = 0) {
     let filterQuery = filters.length ? filters.map(filter => `filter=${filter}`).join('&') : '';
     let langQuery = language ? `langRestrict=${language}` : '';
+    // => filters.length prüft, ob das Filter-Array leer ist:
+    //Wenn nicht leer: map() wird verwendet, um jedes Filterkriterium in den Format filter=... umzuwandeln, und die Filter werden mit & verbunden.
+    //Wenn leer: filterQuery wird ein leerer String.
 
     const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&${filterQuery}&${langQuery}&startIndex=${startIndex}&maxResults=${maxResultsPerPage}&key=${apiKey}`;
 
-    fetch(url)
+    fetch(url) // Ruft die URL auf und sendet eine GET-Anfrage an die Google Books API
         .then(response => response.json())
         .then(data => {
-            displayResults(data.items || []);
+            displayResults(data.items || []); // Darstellung der gefundenen Büchern
             updatePagination(data.totalItems);
         })
         .catch(error => console.error('Fehler beim Abrufen der Bücher:', error));
@@ -45,7 +48,6 @@ function fetchBooks(query, filters = [], language = '', startIndex = 0) {
 // Einblenden von Filteroptions nach 4 Buchstaben
 searchInput.addEventListener('keyup', function (e) {
     string = this.value;
-    //console.log(string.trim());
 
     if (string.trim().length >= 4) {
         filterOptions.style.display = "block";
@@ -138,7 +140,7 @@ function displayResults(books) {
             </div>
         `;
 
-        resultsContainer.appendChild(bookCard);
+        resultsContainer.appendChild(bookCard);//Anhängung an das Ende des result-Containers
     });
 }
 
@@ -161,7 +163,7 @@ function updatePagination(totalItems) {
     const paginationContainer = document.getElementById('pagination'); // HTML-Container wird referenziert
     paginationContainer.innerHTML = ''; // Vorherige Pagination löschen
 
-    const totalPages = Math.ceil(totalItems / maxResultsPerPage); // Gesamtseiten berechnen
+    const totalPages = Math.ceil(totalItems / maxResultsPerPage); // Gesamtseiten berechnen (Gesamtbücher / MaxResultsPerPage, math.ceil = aufrunden)
     
     // Überprüfung: Pagination nur anzeigen, wenn mehrere Seiten vorhanden sind
       if (totalItems <= maxResultsPerPage) {
@@ -184,7 +186,7 @@ function updatePagination(totalItems) {
         e.preventDefault();
         if (currentPage > 0) {
             currentPage--;
-            fetchBooks(searchInput.value.trim(), getFilters(), languageSelect.value, currentPage * maxResultsPerPage);
+            fetchBooks(searchInput.value.trim(), getFilters(), languageSelect.value, currentPage * maxResultsPerPage);//Neue API-Anfrage, um die Bücher auf der vorherigen Seite zu zeigen
         }
     });
     paginationContainer.appendChild(prevItem);
@@ -204,7 +206,7 @@ function updatePagination(totalItems) {
     };
 
     // Start- und Endpunkt der sichtbaren Seiten
-    const start = Math.max(0, Math.min(currentPage - Math.floor(range / 2), totalPages - range));
+    const start = Math.max(0, Math.min(currentPage - Math.floor(range / 2), totalPages - range));//Range = 3, vordefiniert
     const end = Math.min(totalPages, start + range);
 
     // Erste Seite

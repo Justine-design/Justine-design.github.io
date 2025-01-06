@@ -260,7 +260,8 @@ tooltipTriggerList.forEach(function (tooltipTriggerEl) {
 const myModal = document.getElementById('myModal')
 const myInput = document.getElementById('myInput')
 
-// Gibt Fehlermeldung "Cannot read property blah blah => noch richtig verlinken anschauen"
+/* Gibt Fehlermeldung "Cannot read property blah blah => noch richtig verlinken anschauen"
 myModal.addEventListener('shown.bs.modal', () => {
     myInput.focus()
 })
+*/

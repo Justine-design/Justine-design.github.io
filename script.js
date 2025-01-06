@@ -158,18 +158,17 @@ function displayDetails(bookJson) {
 
 //Pagination => hier stimmt was noch nicht
 function updatePagination(totalItems) {
-    const paginationContainer = document.getElementById('pagination'); //HTML-Container wird refernziert
+    const paginationContainer = document.getElementById('pagination'); // HTML-Container wird referenziert
     paginationContainer.innerHTML = ''; // Vorherige Pagination löschen
 
+    const range = 3; // Anzahl der sichtbaren Seitenzahlen
     const totalPages = Math.ceil(totalItems / maxResultsPerPage); // Gesamtseiten berechnen
-    if (totalPages <= 1) return; // Keine Pagination notwendig wenn Gesamtseiten kleiner gleich 1 (<= 20 Ergebnisse)
+    if (totalPages <= 1) return; // Keine Pagination notwendig bei <= 1 Seite
 
     // "Vorherige"-Button
     const prevItem = document.createElement('li');
     prevItem.classList.add('page-item');
-    if (currentPage === 0) prevItem.classList.add('disabled'); //Wenn auf der ersten Seite (currentPage === 0) deaktiviert, man kann nicht zurückgehen
-
-    // Click Event Listener, reduzierung der currentPage um eins & laden neuer Daten
+    if (currentPage === 0) prevItem.classList.add('disabled'); // Deaktivieren bei erster Seite
     prevItem.innerHTML = `
         <a class="page-link" href="#" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
@@ -183,23 +182,11 @@ function updatePagination(totalItems) {
     });
     paginationContainer.appendChild(prevItem);
 
-    // Dynamische Seitenzahlen mit "..."
-
-    // Sichtbare Seitenzahlen
-    //Berechnet Start- und Endpunkt der sichtbaren Seitenzahlen, sodass Anzahl Seiten angezeigt werdne können
-    const start = Math.max(0, Math.min(currentPage - Math.floor(range / 2), totalPages - range));
-    const end = Math.min(totalPages, start + range);
-
-    for (let i = start; i < end; i++) {
-        addPage(i, i === currentPage);
-    }
-
-    const range = 3; // Anzahl der sichtbaren Seitenzahlen
+    // Dynamische Seitenzahlen
     const addPage = (pageNum, isActive = false) => {
         const pageItem = document.createElement('li');
         pageItem.classList.add('page-item');
         if (isActive) pageItem.classList.add('active');
-
         pageItem.innerHTML = `<a class="page-link" href="#">${pageNum + 1}</a>`;
         pageItem.addEventListener('click', (e) => {
             e.preventDefault();
@@ -209,23 +196,41 @@ function updatePagination(totalItems) {
         paginationContainer.appendChild(pageItem);
     };
 
-    // Erste Seite ... bei zu weiter Entfernung
+    // Start- und Endpunkt der sichtbaren Seiten
+    const start = Math.max(0, Math.min(currentPage - Math.floor(range / 2), totalPages - range));
+    const end = Math.min(totalPages, start + range);
+
+    // Erste Seite
     if (currentPage > range) addPage(0);
-    // Letzte Seite .. bei zu weiter Entfernung
+
+    // Linkes "..."
+    if (currentPage > range + 1) {
+        const leftDots = document.createElement('li');
+        leftDots.classList.add('page-item', 'disabled');
+        leftDots.innerHTML = `<span class="page-link">...</span>`;
+        paginationContainer.appendChild(leftDots);
+    }
+
+    // Sichtbare Seiten
+    for (let i = start; i < end; i++) {
+        addPage(i, i === currentPage);
+    }
+
+    // Rechtes "..."
+    if (currentPage < totalPages - range - 1) {
+        const rightDots = document.createElement('li');
+        rightDots.classList.add('page-item', 'disabled');
+        rightDots.innerHTML = `<span class="page-link">...</span>`;
+        paginationContainer.appendChild(rightDots);
+    }
+
+    // Letzte Seite
     if (currentPage < totalPages - range) addPage(totalPages - 1);
 
-    // ...-Punkte anzeigen
-    const dots = document.createElement('li');
-    dots.classList.add('page-item, disabled');
-    dots.innerHTML = `<span class="page-link">...</span>`;
-    paginationContainer.appendChild(dots);
-
-
-    //  << & >>
-    if (currentPage > range + 1) nextItem.classList.add('disabled');
-    if (currentPage >= totalPages - 1) nextItem.classList.add('disabled');
-
-
+    // "Nächste"-Button
+    const nextItem = document.createElement('li');
+    nextItem.classList.add('page-item');
+    if (currentPage >= totalPages - 1) nextItem.classList.add('disabled'); // Deaktivieren bei letzter Seite
     nextItem.innerHTML = `
         <a class="page-link" href="#" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>

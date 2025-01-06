@@ -1,7 +1,7 @@
 
 // JS
 
-const apiKey = 'AIzaSyBR5w4s85g-h6j9N2YBfSAPeTbnLTwF3Bk'; // Ersetze mit deinem Google Books API Key
+const apiKey = 'AIzaSyBR5w4s85g-h6j9N2YBfSAPeTbnLTwF3Bk'; 
 const searchButton = document.getElementById('search-button');
 const searchInput = document.getElementById('search-input');
 const filterFree = document.getElementById('filter-free');
@@ -158,7 +158,7 @@ function displayDetails(bookJson) {
 
 //Pagination => hier stimmt was noch nicht
 function updatePagination(totalItems) {
-    const paginationContainer = document.getElementById('pagination'); 
+    const paginationContainer = document.getElementById('pagination'); //HTML-Container wird refernziert
     paginationContainer.innerHTML = ''; // Vorherige Pagination löschen
 
     const totalPages = Math.ceil(totalItems / maxResultsPerPage); // Gesamtseiten berechnen
@@ -167,9 +167,9 @@ function updatePagination(totalItems) {
     // "Vorherige"-Button
     const prevItem = document.createElement('li');
     prevItem.classList.add('page-item');
-    if (currentPage === 0) prevItem.classList.add('disabled');
+    if (currentPage === 0) prevItem.classList.add('disabled'); //Wenn auf der ersten Seite (currentPage === 0) deaktiviert, man kann nicht zurückgehen
 
-
+    // Click Event Listener, reduzierung der currentPage um eins & laden neuer Daten
     prevItem.innerHTML = `
         <a class="page-link" href="#" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
@@ -184,7 +184,17 @@ function updatePagination(totalItems) {
     paginationContainer.appendChild(prevItem);
 
     // Dynamische Seitenzahlen mit "..."
-    const range = 5; // Anzahl der sichtbaren Seitenzahlen
+
+    // Sichtbare Seitenzahlen
+    //Berechnet Start- und Endpunkt der sichtbaren Seitenzahlen, sodass Anzahl Seiten angezeigt werdne können
+    const start = Math.max(0, Math.min(currentPage - Math.floor(range / 2), totalPages - range));
+    const end = Math.min(totalPages, start + range);
+
+    for (let i = start; i < end; i++) {
+        addPage(i, i === currentPage);
+    }
+
+    const range = 3; // Anzahl der sichtbaren Seitenzahlen
     const addPage = (pageNum, isActive = false) => {
         const pageItem = document.createElement('li');
         pageItem.classList.add('page-item');
@@ -199,40 +209,22 @@ function updatePagination(totalItems) {
         paginationContainer.appendChild(pageItem);
     };
 
-    // Erste Seite
+    // Erste Seite ... bei zu weiter Entfernung
     if (currentPage > range) addPage(0);
-
-    // Linkes "..."
-    if (currentPage > range + 1) {
-        const dots = document.createElement('li');
-        dots.classList.add('page-item', 'disabled');
-        dots.innerHTML = `<span class="page-link">...</span>`;
-        paginationContainer.appendChild(dots);
-    }
-
-    // Sichtbare Seitenzahlen
-    const start = Math.max(0, Math.min(currentPage - Math.floor(range / 2), totalPages - range));
-    const end = Math.min(totalPages, start + range);
-
-    for (let i = start; i < end; i++) {
-        addPage(i, i === currentPage);
-    }
-
-    // Rechtes "..."
-    if (currentPage < totalPages - range - 1) {
-        const dots = document.createElement('li');
-        dots.classList.add('page-item', 'disabled');
-        dots.innerHTML = `<span class="page-link">...</span>`;
-        paginationContainer.appendChild(dots);
-    }
-
-    // Letzte Seite
+    // Letzte Seite .. bei zu weiter Entfernung
     if (currentPage < totalPages - range) addPage(totalPages - 1);
 
-    // "Nächste"-Button
-    const nextItem = document.createElement('li');
-    nextItem.classList.add('page-item');
+    // ...-Punkte anzeigen
+    const dots = document.createElement('li');
+    dots.classList.add('page-item, disabled');
+    dots.innerHTML = `<span class="page-link">...</span>`;
+    paginationContainer.appendChild(dots);
+
+
+    //  << & >>
+    if (currentPage > range + 1) nextItem.classList.add('disabled');
     if (currentPage >= totalPages - 1) nextItem.classList.add('disabled');
+
 
     nextItem.innerHTML = `
         <a class="page-link" href="#" aria-label="Next">
@@ -260,8 +252,3 @@ tooltipTriggerList.forEach(function (tooltipTriggerEl) {
 const myModal = document.getElementById('myModal')
 const myInput = document.getElementById('myInput')
 
-/* Gibt Fehlermeldung "Cannot read property blah blah => noch richtig verlinken anschauen"
-myModal.addEventListener('shown.bs.modal', () => {
-    myInput.focus()
-})
-*/

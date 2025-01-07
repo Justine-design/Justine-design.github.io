@@ -26,7 +26,7 @@ function getFilters() {
     return filters;
 }
 
-// Bücher suchen
+// Bücher suchen mit Paramtersierung (query, filters, language) mithilfe der fetch-Methode
 function fetchBooks(query, filters = [], language = '', startIndex = 0) {
     let filterQuery = filters.length ? filters.map(filter => `filter=${filter}`).join('&') : '';
     let langQuery = language ? `langRestrict=${language}` : '';
@@ -36,25 +36,26 @@ function fetchBooks(query, filters = [], language = '', startIndex = 0) {
 
     const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&${filterQuery}&${langQuery}&startIndex=${startIndex}&maxResults=${maxResultsPerPage}&key=${apiKey}`;
 
+    // Fetch-Methode wird verwendet, um die API abzufragen
     fetch(url) // Ruft die URL auf und sendet eine GET-Anfrage an die Google Books API
         .then(response => response.json())
         .then(data => {
             displayResults(data.items || []); // Darstellung der gefundenen Büchern
             updatePagination(data.totalItems);
         })
-        .catch(error => console.error('Fehler beim Abrufen der Bücher:', error));
+        .catch(error => console.error('Fehler beim Abrufen der Bücher:', error)); //Fehlermeldung wenn Dienst nicht zugänglich
 }
 
 // Einblenden von Filteroptions nach 4 Buchstaben
 searchInput.addEventListener('keyup', function (e) {
     string = this.value;
 
-    if (string.trim().length >= 4) {
+    if (string.trim().length >= 4) { // muss mindestens 4 Eingaben haben, um die Filteroptionen einzublenden
         filterOptions.style.display = "block";
         paginationContainer.style.display ="flex";
     } else { 
         filterOptions.style.display = "none";
-        paginationContainer.style.display ="none";
+        paginationContainer.style.display ="none"; //Sonst werden die Filter gar nicht eingeblendet 
     }
 })
 
@@ -68,7 +69,7 @@ searchButton.addEventListener('click', () => {
     const language = languageSelect.value;
     const preciseQuery = `intitle:${query} OR inauthor:${query}`;
 
-    fetchBooks(preciseQuery, filters, language, currentPage * maxResultsPerPage);
+    fetchBooks(preciseQuery, filters, language, currentPage * maxResultsPerPage); // wieder Fetch-Methode um die Seite zu laden & Bücher abzufragen
 });
 
 // Validierungslogik 
@@ -117,6 +118,7 @@ function displayResults(books) {
 
     resultsContainer.innerHTML = ''; // Vorherige Ergebnisse entfernen
 
+    // If-Schleife wenn es keine Bücher mit den angegeben Filtern und dem query gibt
     if (books.length === 0) {
         resultsContainer.innerHTML = '<p>Keine Ergebnisse gefunden.</p>';
         return;
